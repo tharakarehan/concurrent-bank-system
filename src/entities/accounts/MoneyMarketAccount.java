@@ -30,7 +30,7 @@ public class MoneyMarketAccount extends Account{
         if (balance >= amount) {
             balance -= amount;
             transactionsRemaining--;
-            System.out.printf("Withdrawn: %f from money market account : %s by %s\n", amount, accountNumber, customer.getFirstName());
+            System.out.printf("Withdrawn: %f from money market account : %s by %s %s\n", amount, accountNumber, customer.getLevel(), customer.getFirstName());
         } else {
             System.out.printf("insufficient funds in money market account : %s\n", accountNumber);
         }
@@ -40,7 +40,7 @@ public class MoneyMarketAccount extends Account{
         double interest= balance * interestRate;
         balance += interest;
         taxableAmount += interest;
-        System.out.printf("Interest applied: %f for money market account : %s\n", interest, accountNumber);
+        System.out.printf("Interest applied: %f for money market account : %s : current taxable amount:%f \n", interest, accountNumber, taxableAmount);
     }
 
     public synchronized void applyTax() {
@@ -64,6 +64,14 @@ public class MoneyMarketAccount extends Account{
 
     public int getTransactionsRemaining() {
         return transactionsRemaining;
+    }
+
+    public double getTaxableAmount() {
+        return taxableAmount;
+    }
+
+    public void setTaxableAmount(double taxableAmount) {
+        this.taxableAmount = taxableAmount;
     }
 
 }

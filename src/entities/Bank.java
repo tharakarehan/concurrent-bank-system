@@ -51,7 +51,7 @@ public class Bank {
             return;
         }
 
-        System.out.println("Starting all transactions");
+        System.out.println("\n###################Starting all transactions###################");
         for (Thread thread : threads) {
             thread.start();
         }
@@ -65,7 +65,7 @@ public class Bank {
         }
 
         threads.clear();
-        System.out.println("All transactions completed");
+        System.out.println("###################All transactions completed###################\n");
     }
 
     public void balanceCheck(String accountNumber) {
@@ -292,6 +292,25 @@ public class Bank {
             return null;
         }
         return (MoneyMarketAccount) accounts.get(accountNumber);
+    }
+
+    public void resetAccounts() {
+        accounts.forEach((accountNumber, account) ->
+        {
+            account.setBalance(CommonConstants.INITIAL_ACCOUNT_BALANCE);
+            if (account.getAccountType() == AccountType.MONEY_MARKET) {
+                MoneyMarketAccount moneyMarketAccount = (MoneyMarketAccount) account;
+                moneyMarketAccount.setTransactionsRemaining(CommonConstants.INITIAL_TRANSACTIONS_REMAINING);
+                moneyMarketAccount.setTaxableAmount(0.0);
+            } else if (account.getAccountType() == AccountType.SAVINGS) {
+                SavingsAccount savingsAccount = (SavingsAccount) account;
+                savingsAccount.setTaxableAmount(0.0);
+            } else if (account.getAccountType() == AccountType.CHECKING) {
+                CheckingAccount checkingAccount = (CheckingAccount) account;
+                checkingAccount.setOverdraftUsed(false);
+                checkingAccount.setOverdraftLimit(CommonConstants.INITIAL_OVERDRAFT_LIMIT);
+            }
+        });
     }
 
     public Map<String, Account> getAccounts() {

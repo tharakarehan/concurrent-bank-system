@@ -26,7 +26,7 @@ public class CheckingAccount extends Account{
         }else if (balance + overdraftLimit >= amount) {
             balance -= amount;
             overdraftUsed = true;
-            System.out.printf("Withdrawn: %f from checking account : %s by %s\n", amount, accountNumber, customer.getFirstName());
+            System.out.printf("Withdrawn: %f from checking account : %s by %s %s\n", amount, accountNumber, customer.getLevel(), customer.getFirstName());
         } else {
             System.out.printf("Overdraft limit exceeded for checking account : %s by %s\n", accountNumber, customer.getFirstName());
         }

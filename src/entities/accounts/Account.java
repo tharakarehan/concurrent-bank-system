@@ -71,4 +71,8 @@ public abstract class Account {
     public AccountType getAccountType() {
         return accountType;
     }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
 }

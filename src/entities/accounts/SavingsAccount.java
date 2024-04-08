@@ -22,7 +22,7 @@ public class SavingsAccount extends Account {
         }
         if (balance >= amount) {
             balance -= amount;
-            System.out.printf("Withdrawn: %f from savings account : %s by %s\n", amount, accountNumber, customer.getFirstName());
+            System.out.printf("Withdrawn: %f from savings account : %s by %s %s\n", amount, accountNumber, customer.getLevel(), customer.getFirstName());
         } else {
             System.out.printf("insufficient funds in savings account : %s\n", accountNumber);
         }
@@ -32,7 +32,7 @@ public class SavingsAccount extends Account {
         double interest = balance * interestRate;
         balance += interest;
         taxableAmount += interest;
-        System.out.printf("Interest applied: %f for savings account : %s\n", interest, accountNumber);
+        System.out.printf("Interest applied: %f for savings account : %s : current taxable amount:%f \n", interest, accountNumber, taxableAmount);
     }
 
     public synchronized void applyTax() {
@@ -44,5 +44,13 @@ public class SavingsAccount extends Account {
         balance -= tax;
         taxableAmount = 0.0;
         System.out.printf("Tax applied: %f for savings account : %s\n", tax, accountNumber);
+    }
+
+    public double getTaxableAmount() {
+        return taxableAmount;
+    }
+
+    public void setTaxableAmount(double taxableAmount) {
+        this.taxableAmount = taxableAmount;
     }
 }
